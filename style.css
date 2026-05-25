@@ -1,0 +1,290 @@
+/* ==========================================
+   1. GLOBAL RESETS & Ambient LIGHT EFFECTS
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #0c0a17;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    position: relative;
+}
+
+/* Vibrant Neon Background light sources for Glassmorphism */
+.bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+    opacity: 0.35;
+}
+.blob-left {
+    width: 350px;
+    height: 350px;
+    background-color: #6366f1;
+    top: -50px;
+    left: -50px;
+}
+.blob-right {
+    width: 450px;
+    height: 450px;
+    background-color: #a855f7;
+    bottom: -100px;
+    right: -50px;
+}
+
+/* ==========================================
+   2. CONTAINERS & STRUCTURE LAYOUTS
+   ========================================== */
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    
+    /* ENHANCED EXPANSION CODES: Gives everything ample breathing room */
+    width: 980px;  /* Increased from 900px to expand horizontally */
+    height: 580px; /* Increased from 520px to prevent card content clipping */
+    
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar {
+    width: 220px; /* Slightly wider sidebar for balanced proportions */
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+}
+.sidebar h2 {
+    margin-bottom: 30px;
+    color: #a78bfa;
+}
+.sidebar p {
+    margin-bottom: 15px;
+    color: #c1c7d0;
+    cursor: pointer;
+}
+
+.main-content {
+    flex: 1;
+    padding: 35px 40px; /* Enhanced space between card outer borders */
+    overflow-y: hidden;  /* Keeps the scrollbar off completely */
+}
+.main-content h1 {
+    margin-bottom: 20px;
+}
+
+/* Fixed Multi-Row Asymmetric Column Rules */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; 
+    grid-template-rows: auto auto auto; /* Changed from 1fr to auto so cards only take the space they actually need */
+    gap: 12px;                          /* Slightly snugger gap to pull items upward */
+    align-items: start;                 /* Aligns items to the top instead of stretching them downwards */
+}
+
+/* Left element (Task Manager) stretches top-to-bottom */
+.card:nth-of-type(1) {
+    grid-row: span 3; 
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 14px 18px; /* Slightly reduced padding to save valuable vertical pixels */
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+.card h3 {
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #c1c7d0;
+}
+
+/* ==========================================
+   3. ELEMENT COMPONENT INPUTS & BULLETS
+   ========================================== */
+input {
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: white;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input:focus {
+    border-color: #a78bfa;
+    background: rgba(255, 255, 255, 0.08);
+}
+.input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #a78bfa;
+    border: none;
+    color: #111;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+button:hover { transform: translateY(-1px); }
+button:active { transform: translateY(1px); }
+
+#task-list {
+    list-style: none; 
+    margin-top: 15px;
+    max-height: 180px; 
+    overflow-y: auto;  
+}
+#task-list li {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+#task-list li span {
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+.completed {
+    text-decoration: line-through;
+    color: #6b7280;
+    opacity: 0.5;
+}
+
+.task-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: #a78bfa;
+    border-radius: 50%;
+    margin-right: 12px;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+/* ==========================================
+   4. PROGRESS RING ELEMENT STYLES
+   ========================================== */
+.progress-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+.progress-ring {
+    transform: rotate(-90deg);
+}
+.progress-ring__text {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.3s ease;
+}
+
+/* ==========================================
+   5. TIMER, LOG, & WEATHER CARD STYLES
+   ========================================== */
+.timer-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px; /* Slimmed down vertical padding */
+}
+.timer-modes {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: 10px;
+}
+.mode-btn {
+    background: transparent;
+    color: #9ca3af;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+.mode-btn:hover { color: #ffffff; transform: none; }
+.mode-btn.active {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #a78bfa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timer-display {
+    font-size: 38px; /* Slightly smaller font size to keep the layout tight and balanced */
+    font-weight: bold;
+    color: #a78bfa;
+    margin: 8px 0;   /* Reduced margin from 15px to 8px */
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -1px;
+}
+.timer-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.log-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.session-counter-badge {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbbf24;
+    background-color: rgba(251, 191, 36, 0.08);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    align-self: start;
+}
+.log-list {
+    list-style: none;
+    max-height: 60px;
+    overflow-y: auto;
+    font-size: 13px;
+    color: #9ca3af;
+}
+.log-item {
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom formatting to give weather internal elements perfect spacing */
+.weather-card {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 18px; /* Optimized cushion borders for the weather content */
+}
+#weather-content {
+    margin-top: 10px;
+    width: 100%;             /* Spans across the card smoothly */
+}

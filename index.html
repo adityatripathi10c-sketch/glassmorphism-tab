@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-blob blob-left"></div>
+    <div class="bg-blob blob-right"></div>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <h2>Aura.</h2>
+            <p>Overview</p>
+            <p>Settings</p>
+        </aside>
+
+        <main class="main-content">
+            <h1>Workspace Overview</h1>
+            
+            <div class="dashboard-grid">
+                
+                <div class="card">
+                    <h3>Focus Objectives</h3>
+                    
+                    <div class="progress-box">
+                        <svg class="progress-ring" width="100" height="100">
+                            <circle class="progress-ring__track" cx="50" cy="50" r="40" stroke="rgba(255, 255, 255, 0.05)" stroke-width="6" fill="transparent" />
+                            <circle class="progress-ring__circle" id="progress-circle" cx="50" cy="50" r="40" stroke="#a78bfa" stroke-width="6" fill="transparent" />
+                        </svg>
+                        <div class="progress-ring__text" id="progress-percent-text">0%</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; margin-top: 15px;">
+                        <input type="text" id="task-input" placeholder="Type a task..." style="flex: 1;">
+                        <button id="add-btn">Add</button>
+                    </div>
+                    
+                    <ul id="task-list"></ul>
+                </div>
+
+                <div class="card timer-card">
+                    <h3>Focus Session</h3>
+                    
+                    <div class="timer-modes">
+                        <button class="mode-btn active" data-time="25">Focus</button>
+                        <button class="mode-btn" data-time="5">Short Break</button>
+                        <button class="mode-btn" data-time="15">Long Break</button>
+                    </div>
+
+                    <div class="timer-display" id="timer-display">25:00</div>
+                    
+                    <div class="timer-controls">
+                        <button id="timer-start-btn">Start</button>
+                        <button id="timer-reset-btn" style="background-color: #374151; color: white;">Reset</button>
+                    </div>
+                </div>
+
+                <div class="card log-card">
+                    <h3>Completed Sessions</h3>
+                    <div class="session-counter-badge" id="session-count-display">0 Sessions</div>
+                    <ul id="session-log-list" class="log-list">
+                        </ul>
+                </div>
+
+                <div class="card weather-card">
+                    <h3>Weather Overview</h3>
+                    <div id="weather-loading" style="color: #125ad6; font-size: 14px;">Loading local weather...</div>
+                    
+                    <div id="weather-content" style="display: none; align-items: center; justify-content: space-between; margin-top: 5px;">
+                        <div>
+                            <div id="weather-temp" style="font-size: 32px; font-weight: bold; color: #a78bfa;">--°C</div>
+                            <div id="weather-desc" style="font-size: 14px; color: #9ca3af; text-transform: capitalize;">Clear Sky</div>
+                        </div>
+                        <div id="weather-icon" style="font-size: 36px;">☀️</div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
